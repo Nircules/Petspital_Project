@@ -1,0 +1,16 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if current_patient %}
+        <h1> Register Pet for {{ current_patient }}</h1>
+        <form method='post'>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type='submit' class="btn btn-primary col-md-4" name="pet_register"> New Pet</button>
+        </form>
+    {% else %}
+        <h2>Can't work with no current patient active.</h2>
+    {% endif %}
+{% endblock content %}

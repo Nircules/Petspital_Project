@@ -1,0 +1,18 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+    <h1>Petspital Home Page</h1>
+    {% if request.user.is_authenticated %}
+        {% if request.user.user_profile.first_name %}
+            <h3>Hello {{ request.user.user_profile.first_name }}!</h3>
+        {% else %}
+            <h3>Hello {{ request.user|title }}!</h3>
+        {% endif %}
+    {% endif %}
+    <div id="home">
+        Welcome to my project, my name is Nir Ben Giat. <br>
+        This project is about a vet clinic. <br>
+        The patients can see their pet's profile and make appointments. <br>
+        The staff can register, edit, make appointments and more.
+    </div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% load static %}
+<script src="{% static '/css/../../static/js/functions.js' %}"></script>
+<link rel="stylesheet" href="{% static '/css/styles.css' %}">
+
+<body onload="myFunction()" onresize="myFunction()">
+    <nav class="navbar">
+        <div id="trapezoid">
+            <ul id="linksUL">
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'clinic' %}">Clinic</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+
+                {% if request.user.is_authenticated %}
+                    {% if not request.user.is_staff %}
+                        <li><a href="{% url 'profile' request.user.user_profile.id %}">Profile</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+
+
+</body>

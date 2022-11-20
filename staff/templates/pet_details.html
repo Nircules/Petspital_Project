@@ -1,0 +1,68 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <button class="button-29 red back" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+        BACK
+    </button>
+    <h1>Pet Profile:</h1>
+    <br><br>
+    <h3>{{ pet.name }}</h3>
+    <table id="pet">
+        <tr>
+            <td>Specie:</td>
+            <td>{{ pet.specie }}</td>
+        </tr>
+        <tr>
+            <td>Breed:</td>
+            <td>{{ pet.breed }}</td>
+        </tr>
+        <tr>
+            <td>Birth Date:</td>
+            <td>{{ pet.birth_date }}</td>
+        </tr>
+        <tr>
+            <td>Weight:</td>
+            <td>{{ pet.weight }}</td>
+        </tr>
+    </table> <br>
+    {% if request.user.is_staff %}
+        <a href="{% url 'update_pet' pet.id %}">
+            <button type='submit' class="button-29"> Update Pet</button>
+        </a>
+    {% endif %}
+
+    <h3>History: </h3>
+    <div class="appointments-grid">
+        {% for appointment in appointments %}
+            {% if appointment.completed %}
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">
+                        {{ appointment.appointment_date }}
+                        <br>
+                        {{ appointment.appointment_hour }}
+                    </div>
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        {{ appointment.description }}
+                    </div>
+                    <div class="card-header">
+                        Results:
+                    </div>
+                    <div class="card-body">
+                        {{ appointment.results }}
+                    </div>
+                    <div class="card-footer">
+                        {% if request.user.is_staff %}
+                            <button class="button-29"
+                                    onclick="window.location.href='{% url 'update_appointment' appointment.id %}'">
+                                Update
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

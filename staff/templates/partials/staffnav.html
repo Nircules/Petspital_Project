@@ -1,0 +1,66 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" href="{% static '/css/staffstyle.css' %}">
+
+<body>
+    <div class="sidenav">
+        {% if request.user.is_superuser %}
+            <p id="HeadName">
+                <a href="{% url 'admin:index' %}">
+                    {{ request.user.user_profile.first_name }}
+                </a></p>
+        {% else %}
+            <p id="HeadName">{{ request.user.user_profile.first_name }}</p>
+        {% endif %}
+        <a href="{% url 'appointments_in_date' %}">Appointments</a>
+        <a href="{% url 'register' %}">New Patient</a>
+        <hr class="nav_seperator">
+        {% if current_patient %}
+            <a href="{% url 'profile' current_patient.id %}">Patient's Profile</a>
+            <a href="{% url 'register_pet' %}">New Pet</a>
+            <hr class="nav_seperator">
+        {% endif %}
+
+        {#    ********************************************************** #}
+        {#    This section is for current patient form.  #}
+        <div id="FootPatient">
+
+            {% if not current_patient and request.path == '/' %}
+                <form method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    {{ search_form }}
+
+                    <datalist id="patients" class="patient_search_bar">
+                        {% for patient in patients %}
+                            <option value="{{ patient.id_number }}">
+                                {{ patient }} - {{ patient.id_number }}
+                            </option>
+                        {% endfor %}
+                    </datalist>
+
+                    <br><br>
+                    <button type="submit" class="button-29" href="{% url 'homepage' %}">Search</button>
+                </form>
+
+            {% else %}
+
+                <p>
+                    Current Patient:<br>
+                    {{ current_patient }}<br>
+                    {{ current_patient.id_number }}<br>
+                </p>
+                {% if request.path == '/' %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="change_current" class="button-29">Change</button>
+                    </form>
+                {% else %}
+                    <p>(Go to Home <br> to change)</p>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</body>

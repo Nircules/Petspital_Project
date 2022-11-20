@@ -1,0 +1,47 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div id="change_date">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button class="button-29">Change</button>
+        </form>
+    </div>
+    <h1>Appointments: </h1>
+    <br>
+    <div class="appointments-grid">
+        {% for appointment in appointments %}
+            {% if not appointment.completed %}
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            {% else %}
+                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+            {% endif %}
+        <div class="card-header"> {{ appointment.appointment_hour }}</div>
+        <div class="card-header"> {{ appointment.pet.name }}</div>
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ appointment.pet.owner }} - {{ appointment.pet.owner.phone_number }}
+            </h5>
+            <br>
+            {{ appointment.description }}
+        </div>
+        <div class="card-footer">
+            <button class="button-29" onclick="window.location.href='{% url 'update_appointment' appointment.id %}'">
+                Update
+            </button>
+            {% if not appointment.completed %}
+                <a href="{% url 'cancel_appointment' appointment.id %}">
+                    <button class="button-29 red">Cancel</button>
+                </a>
+            {% endif %}
+        </div>
+        </div>
+        {% empty %}
+            <h2>No appointments.</h2>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

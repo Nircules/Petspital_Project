@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1> Login </h1>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% for message in messages %}
+            <div class="message"> {{ message }}</div>
+        {% endfor %}<br>
+        <button type='submit' class="btn btn-primary col-md-4 "> Sign In</button>
+    </form>
+    <br><br>
+    <a href="{% url 'register' %}">
+        <button class="btn btn-success col-md-4"> Register</button>
+    </a>
+
+{% endblock content %}

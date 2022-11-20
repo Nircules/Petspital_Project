@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1> Update Profile </h1>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button type='submit' class="button-29"> Update Profile</button>
+        <br><br><br><br><br><br><br><br><br>
+        {% if request.user.is_staff and not user_profile.user.is_staff %}
+            <button class="button-29 red" name="assistant">Hire as Assistant</button>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <button class="button-29 red" name="vet">Hire as Vet</button>
+        {% endif %}
+    </form>
+
+{% endblock content %}

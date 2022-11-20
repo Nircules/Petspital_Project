@@ -1,0 +1,17 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+    <button class="button-29 red back" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+        BACK
+    </button>
+    <h1>ARE YOU SURE YOU WANT TO CANCEL THIS APPOINTMENT???</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ appointment }}<br>
+        <button class="button-29 red" type="submit">Yes</button>
+    </form><br><br><br>
+    <button class="button-29 red" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+        No!
+    </button>
+{% endblock content %}

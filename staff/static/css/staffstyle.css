@@ -1,0 +1,208 @@
+.sidenav {
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: rgb(148, 90, 255);
+    background: linear-gradient(0deg, rgba(148, 90, 255, 1) 0%, rgba(176, 133, 255, 1) 100%);
+    overflow-x: hidden;
+    padding-top: 20px;
+    box-shadow: 0 4px 8px 6px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+    transition: all 0.3s;
+}
+
+.sidenav a:hover {
+    color: #e8e8e8;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+#HeadName {
+    height: 80px;
+    width: 95%;
+    text-align: center;
+    align-items: center;
+    font-size: 25px;
+    color: #ffffff;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.46);
+    box-shadow: 0 4px 8px 6px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+#HeadName a {
+    padding: 0;
+    font-size: xx-large;
+}
+
+#FootPatient {
+    max-height: 400px;
+    min-height: 200px;
+    width: 99%;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    font-size: x-large;
+    color: #ffffff;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.46);
+    box-shadow: 0 4px 8px 6px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#id_search_patient {
+    width: 95%;
+}
+
+input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+a > .button-29 {
+    text-decoration: none;
+}
+
+.button-29 {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #9854ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+}
+
+.button-29:focus {
+    box-shadow: #3c4fe0 0 0 0 2px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-29:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+hr.nav_seperator {
+    border-top: 3px solid rgb(152, 84, 255);
+    box-shadow: 0 2px 16px 4px rgb(53, 19, 105), 0 6px 20px 0 rgb(152, 84, 255);
+}
+
+.alert {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin-top: 30px;
+}
+
+.alert li {
+    list-style-type: none;
+    font-size: 120%;
+}
+
+
+.selectdatewidget {
+    margin-top: 5px;
+}
+
+#change_date .errorlist {
+    display: none;
+}
+
+#change_date .button-29 {
+    height: 30px;
+}
+
+.helptext {
+    display: none;
+}
+
+.appointments-grid {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 20px;
+}
+
+.appointments-grid .card-header {
+    font-weight: bolder;
+}
+
+.appointments-grid .card {
+    height: 500px;
+}
+
+.appointments-grid .card-body {
+    overflow-y: auto;
+    width: 101%;
+}
+
+.red {
+    background-image: radial-gradient(100% 100% at 100% 0, #ff5ae9 0, #fd233e 100%);
+}
+
+.back {
+    position: absolute;
+    left: 10px;
+}
+
+/* width */
+.appointments-grid ::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Track */
+.appointments-grid ::-webkit-scrollbar-track {
+    background: #9aff79;
+}
+
+/* Handle */
+.appointments-grid ::-webkit-scrollbar-thumb {
+    background: #b692fd;
+}
+
+/* Handle on hover */
+.appointments-grid ::-webkit-scrollbar-thumb:hover {
+    background: #770cff;
+}

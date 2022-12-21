@@ -23,6 +23,10 @@
         }
     </script>
 
+    <button class="button-29 red back" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+        BACK
+    </button>
+
     <h1>Appointment for {{ pet.name }}</h1>
     <form method="POST">
         {% csrf_token %}

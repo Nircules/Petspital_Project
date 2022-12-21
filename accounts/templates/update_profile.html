@@ -2,6 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <button class="button-29 red back" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+        BACK
+    </button>
 
     <h1> Update Profile </h1>
     <form method='post'>

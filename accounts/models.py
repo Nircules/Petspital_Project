@@ -13,12 +13,15 @@ def is_number(number):
 # Create your models here.
 # This class holds the information of all the users in the App, wether staff or not.
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
-    first_name = models.CharField(max_length=50, validators=[MinLengthValidator(2)])
-    last_name = models.CharField(max_length=50, validators=[MinLengthValidator(2)])
-    email = models.EmailField(unique=True)
-    phone_number = PhoneNumberField(region='IL', unique=True)
-    id_number = models.CharField(unique=True, max_length=9,
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='user_profile')
+    first_name = models.CharField(
+        max_length=50, validators=[MinLengthValidator(2)])
+    last_name = models.CharField(max_length=50, validators=[
+                                 MinLengthValidator(2)])
+    email = models.EmailField(unique=True, null=True)
+    phone_number = PhoneNumberField(region='IL', unique=True, null=True)
+    id_number = models.CharField(unique=True, max_length=9, null=True,
                                  validators=[MinLengthValidator(9), MaxLengthValidator(9), is_number])
     address = models.CharField(max_length=100)
     join_date = models.DateField(auto_now_add=True)
@@ -28,6 +31,10 @@ class UserProfile(models.Model):
             value = getattr(self, field)
             if value:
                 setattr(self, field, value.title())
+        for field in ['email', 'phone_number', 'id_number']:
+            value = getattr(self, field)
+            if not value:
+                setattr(self, field, None)
         super(UserProfile, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -62,7 +69,8 @@ class Specie(models.Model):
 
 # The pet class
 class Pet(models.Model):
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='pets')
+    owner = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='pets')
     name = models.CharField(max_length=50)
     specie = models.ForeignKey(Specie, on_delete=models.CASCADE)
     breed = models.CharField(max_length=50, null=True, blank=True)

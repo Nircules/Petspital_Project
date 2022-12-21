@@ -20,7 +20,8 @@ def register(request):
             u_password = form_filled.cleaned_data['password1']
             user = authenticate(username=u_username, password=u_password)
             if user:
-                del request.session['current_patient']
+                if 'current_patient' in request:
+                    del request.session['current_patient']
                 patient = UserProfile.objects.create(user_id=user.id)
                 if not request.user.is_staff:
                     login(request, user)
@@ -45,7 +46,8 @@ def user_login(request):
             return redirect('homepage')
         else:
             context = {'form': AuthenticationForm(request.POST)}
-            messages.add_message(request, messages.WARNING, "Username and password don't match!")
+            messages.add_message(request, messages.WARNING,
+                                 "Username and password don't match!")
             return render(request, 'login.html', context)
 
     else:
@@ -91,7 +93,8 @@ def profile(request, patient_id):
     user_profile = UserProfile.objects.get(pk=patient_id)
     pets = Pet.objects.filter(owner=user_profile.id)
     context = {'profile': user_profile, 'pets': pets}
-    appointments = Appointment.objects.filter(pet__in=pets).order_by('appointment_date', 'hour_slot')
+    appointments = Appointment.objects.filter(
+        pet__in=pets).order_by('appointment_date', 'hour_slot')
     context['appointments'] = appointments
 
     return render(request, 'profile.html', context)

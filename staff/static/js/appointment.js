@@ -28,8 +28,12 @@ function showhours() {
     // sets the hour options with the filtering via the given date.
     let year = document.getElementById('id_appointment_date_year')
     let month = document.getElementById('id_appointment_date_month')
+    let month_value = month.value
+    if (Number(month.value) < 10) {
+        month_value = `0${month.value}`
+    }
     let day = document.getElementById('id_appointment_date_day')
-    let chosen_date = `${year.value}-${month.value}-${day.value}`
+    let chosen_date = `${year.value}-${month_value}-${day.value}`
     let available_hours = document.getElementById('id_hour_slot')
     resetOptions(available_hours, business_hours)
     for (let x of dates) {
@@ -38,7 +42,6 @@ function showhours() {
                 available_hours.options[indexMatchingText(available_hours, x["hour"])].remove()
             }
         }
-
     }
 }
 

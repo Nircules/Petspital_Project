@@ -24,7 +24,9 @@ class RegisterPetForm(forms.ModelForm):
 
 
 class PatientSearch(forms.Form):
-    search_patient = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'list': 'patients'}),
+    search_patient = forms.CharField(max_length=50,
+                                     widget=forms.TextInput(
+                                         attrs={'list': 'patients', 'placeholder': 'Name / ID'}),
                                      label='Search Patient', error_messages=False)
 
     def clean(self):
@@ -37,7 +39,8 @@ class PatientSearch(forms.Form):
 class CreateAppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ['pet', 'description', 'appointment_date', 'hour_slot', 'created_by']
+        fields = ['pet', 'description',
+                  'appointment_date', 'hour_slot', 'created_by']
         widgets = {
             'pet': forms.HiddenInput(),
             'description': forms.Textarea(attrs={'rows': 3}),

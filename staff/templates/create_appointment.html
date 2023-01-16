@@ -8,9 +8,9 @@
         let taken_date_hour = {}
         {% for appointment in appointments %}
             dates.push({
-                "date": "{{ appointment.appointment_date|date:"Y-m-d" }}",
+                "date": "{{ appointment.appointment_date|date:'Y-m-d' }}",
                 "hour": "{{ appointment.appointment_hour }}",
-                "slot": ({{ appointment.hour_slot }})
+                "slot": "{{ appointment.hour_slot }}"
             })
         {% endfor %}
         let business_hours = [];

@@ -1,107 +1,104 @@
-{% extends 'partials/base.html' %}
+{% extends 'partials/base.html' %} {% block content %}
+<button
+	class="button-29 red back"
+	onclick="window.location.href='{{ request.META.HTTP_REFERER }}'"
+>
+	BACK
+</button>
+<h1>Profile:</h1>
+<br /><br />
+<h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+<table id="profile">
+	<tr>
+		<td>Email:</td>
+		<td>{{ profile.email }}</td>
+	</tr>
+	<tr>
+		<td>Phone Number:</td>
+		<td>{{ profile.phone_number }}</td>
+	</tr>
+	<tr>
+		<td>ID Number:</td>
+		<td>{{ profile.id_number }}</td>
+	</tr>
+	<tr>
+		<td>Address:</td>
+		<td>{{ profile.address }}</td>
+	</tr>
+</table>
+<br />
+{% if request.user.is_staff %}
+<a href="{% url 'update_profile' current_patient.id %}">
+	<button type="submit" class="button-29">Update Profile</button>
+</a>
+{% elif not request.user.is_staff %}
+<a href="{% url 'update_profile' request.user.user_profile.id %}">
+	<button type="submit" class="button-29">Update Profile</button>
+</a>
+{% else %}
+<h5>Needs Current Patient.</h5>
+{% endif %}
 
+<br /><br />
+<hr class="nav_seperator" />
+<br /><br />
 
-{% block content %}
-    <button class="button-29 red back" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
-        BACK
-    </button>
-    <h1>Profile:</h1>
-    <br><br>
-    <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
-    <table id="profile">
-        <tr>
-            <td>Email:</td>
-            <td>{{ profile.email }}</td>
-        </tr>
-        <tr>
-            <td>Phone Number:</td>
-            <td>{{ profile.phone_number }}</td>
-        </tr>
-        <tr>
-            <td>ID Number:</td>
-            <td>{{ profile.id_number }}</td>
-        </tr>
-        <tr>
-            <td>Address:</td>
-            <td>{{ profile.address }}</td>
-        </tr>
-    </table> <br>
-    {% if request.user.is_staff %}
-        <a href="{% url 'update_profile' current_patient.id %}">
-            <button type='submit' class="button-29"> Update Profile</button>
-        </a>
-    {% elif not request.user.is_staff %}
-        <a href="{% url 'update_profile' request.user.user_profile.id %}">
-            <button type='submit' class="button-29"> Update Profile</button>
-        </a>
-    {% else %}
-        <h5>Needs Current Patient.</h5>
-    {% endif %}
+<h3>Your Pets:</h3>
+<br />
+<div class="pets-grid">
+	{% for pet in pets %}
+	<div class="grid-item">
+		<div class="card border-pet mb-3" style="max-width: 80%">
+			<div class="card-header bg-transparent border-pet">
+				<button
+					class="button-29 red"
+					onclick="window.location.href='{% url 'pet_details' pet.id %}'"
+				>
+					{{ pet.name }}
+				</button>
+			</div>
+			<div class="card-body">
+				<p>
+					{% if pet.breed %} {{ pet.breed }} {% endif %}
+					<br />
+					{{ pet.specie }} <br />
+					{{ pet.age }} years old.
+				</p>
+			</div>
+			<div class="card-footer bg-transparent border-pet">
+				<button
+					class="button-29"
+					onclick="window.location.href='{% url 'create_appointment' pet.id %}'"
+				>
+					Make Appointment
+				</button>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
 
-    <br><br>
-    <hr class="nav_seperator">
-    <br><br>
+<br /><br />
+<hr class="nav_seperator" />
+<br /><br />
 
-    <h3>Your Pets: </h3> <br>
-    <div class="pets-grid">
-        {% for pet in pets %}
-            <div class="grid-item">
-                <div class="card border-pet mb-3" style="max-width: 80%;">
-                    <div class="card-header bg-transparent border-pet">
-                        <button class="button-29 red"
-                                onclick="window.location.href='{% url 'pet_details' pet.id %}'">
-                            {{ pet.name }}
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            {% if pet.breed %}
-                                {{ pet.breed }}<br>
-                            {% else %}
-                                <br>
-                            {% endif %}
-                            {{ pet.specie }} <br>
-                            {{ pet.age }} years old.
-                        </p>
-                    </div>
-                    <div class="card-footer bg-transparent border-pet">
-                        <button class="button-29"
-                                onclick="window.location.href='{% url 'create_appointment' pet.id %}'">
-                            Make Appointment
-                        </button>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+{# This section is for the appointmnets of the client #}
+<h3>Upcoming Appointments:</h3>
+<div class="appointments-grid">
+	{% for appointment in appointments %} {% if not appointment.completed %}
+	<div class="card text-white bg-success mb-3">
+		<div class="card-header">
+			{{ appointment.appointment_date }}
+			<br />
+			{{ appointment.appointment_hour }}
+		</div>
+		<div class="card-header">{{ appointment.pet.name }}</div>
+		<div class="card-body">{{ appointment.description }}</div>
+	</div>
+	{% endif %} {% empty %}
+	<h2>No appointments.</h2>
+	{% endfor %}
+</div>
 
-    <br><br>
-    <hr class="nav_seperator">
-    <br><br>
-
-    {#    This section is for the appointmnets of the client  #}
-    <h3>Upcoming Appointments: </h3>
-    <div class="appointments-grid">
-        {% for appointment in appointments %}
-            {% if not appointment.completed %}
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">
-                        {{ appointment.appointment_date }}
-                        <br>
-                        {{ appointment.appointment_hour }}
-                    </div>
-                    <div class="card-header"> {{ appointment.pet.name }}</div>
-                    <div class="card-body">
-                        {{ appointment.description }}
-                    </div>
-                </div>
-            {% endif %}
-        {% empty %}
-            <h2>No appointments.</h2>
-        {% endfor %}
-    </div>
-
-    {% for new in new_app %}
-        {{ new }} <br>
-    {% endfor %}
-{% endblock content %}
+{% for new in new_app %} {{ new }} <br />
+{% endfor %} {% endblock content %}

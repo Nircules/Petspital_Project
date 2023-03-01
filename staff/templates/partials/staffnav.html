@@ -56,6 +56,7 @@
                         <button type="submit" name="change_current" class="button-29">Change</button>
                     </form>
                 {% else %}
+                    <button class="button-29" onclick="window.location.href='{% url 'homepage' %}'">Home</button>
                     <p>(Go to Home <br> to change)</p>
                 {% endif %}
 

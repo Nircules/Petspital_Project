@@ -33,7 +33,10 @@ function showhours() {
         month_value = `0${month.value}`
     }
     let day = document.getElementById('id_appointment_date_day')
-    let chosen_date = `${year.value}-${month_value}-${day.value}`
+    if (Number(day.value) < 10) {
+        day_value = `0${day.value}`
+    }
+    let chosen_date = `${year.value}-${month_value}-${day_value}`
     let available_hours = document.getElementById('id_hour_slot')
     resetOptions(available_hours, business_hours)
     for (let x of dates) {
